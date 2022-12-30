@@ -20,7 +20,7 @@ export class ForgotPasswordComponent {
   onSubmit(Update: any) {
     const exists = this.users.find((user: any) => user.userId === Update.value.userId)
     if (!exists) {
-      this.updateMsg = "User Doesn't Exist";
+      this.updateMsg = "User doesn't exist";
       return;
     }
     const password = Update.value.password

@@ -27,10 +27,10 @@ export class LoginFormComponent {
       .then(res => res.json())
       .then(data => {
         if (data) {
-          this.logMsg = "Log in Successful";
+          this.logMsg = "Login Successful";
         }
         else {
-          this.logMsg = "username or password doesn't match";
+          this.logMsg = "Username or password doesn't match";
         }
       })
       .catch(e => { })

@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
   onSubmit(Register: any) {
     const alreadyExists = this.users.find((user: any) => user.userId === Register.value.userId)
     if (alreadyExists) {
-      this.regMsg = "User Already Exists";
+      this.regMsg = "User already exists";
       return;
     }
 
@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
     })
       .then(res => res.json())
       .then(data => {
-        this.regMsg = "User Created Successfully"
+        this.regMsg = "User created successfully"
       })
       .catch(e => console.log(e))
 
