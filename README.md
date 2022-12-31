@@ -5,6 +5,6 @@
 ## Client Repo: [https://github.com/nazmussakibofficial/celloscope-client](https://github.com/nazmussakibofficial/celloscope-client)
 ## Server Repo: [https://github.com/nazmussakibofficial/celloscope-server](https://github.com/nazmussakibofficial/celloscope-server)
 
-Curl Command for Rest API: curl GET https://celloscope-server.vercel.app/users
+Curl Command for testing API: curl GET https://celloscope-server.vercel.app/users
 
 Figma: https://www.figma.com/file/3ZPkS04izYsCwUSmSpZykW/Celloscope?node-id=0%3A1&t=iSRd6enVaR4bcUsU-1
