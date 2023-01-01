@@ -12,6 +12,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HotToastModule.forRoot(),
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
+    FontAwesomeModule,
+    DpDatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

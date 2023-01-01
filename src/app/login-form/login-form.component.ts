@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserData } from '../user.data';
 
 @Component({
@@ -10,13 +12,14 @@ export class LoginFormComponent {
   public logMsg: string = '';
   public users: any = [];
 
-  constructor(private userData: UserData) { }
+  constructor(private userData: UserData, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.userData.getUsers().subscribe(data => this.users = data)
   }
 
   onSubmit(Login: any) {
+    this.logMsg = '';
     fetch(`https://celloscope-server.vercel.app/login/${Login.value.userId}`, {
       method: 'PATCH',
       headers: {
@@ -26,12 +29,12 @@ export class LoginFormComponent {
     })
       .then(res => res.json())
       .then(data => {
-        if (data) {
-          this.logMsg = "Login Successful";
+        if (data.message === "Login Successful") {
+          this.toastr.success('', 'You are now logged in');
+          this.router.navigate(["/dashboard"]);
+          return;
         }
-        else {
-          this.logMsg = "Username or password doesn't match";
-        }
+        this.logMsg = data.message;
       })
       .catch(e => { })
   }

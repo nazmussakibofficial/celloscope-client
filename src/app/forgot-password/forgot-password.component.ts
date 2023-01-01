@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserData } from '../user.data';
 
 @Component({
@@ -7,10 +9,9 @@ import { UserData } from '../user.data';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  public updateMsg: string = '';
   public users: any = [];
 
-  constructor(private userData: UserData) { }
+  constructor(private userData: UserData, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.userData.getUsers().subscribe(data => this.users = data)
@@ -18,9 +19,9 @@ export class ForgotPasswordComponent {
 
 
   onSubmit(Update: any) {
-    const exists = this.users.find((user: any) => user.userId === Update.value.userId)
+    const exists = this.users.find((user: any) => user.userId === Update.value.userId && user.email === Update.value.email)
     if (!exists) {
-      this.updateMsg = "User doesn't exist";
+      this.toastr.error("User and email Address doesn't match or exist", 'Sorry!');
       return;
     }
     const password = Update.value.password
@@ -34,7 +35,8 @@ export class ForgotPasswordComponent {
     })
       .then(res => res.json())
       .then(data => {
-        this.updateMsg = "Updated successfully";
+        this.toastr.success('', 'Password is updated');
+        this.router.navigate(["/"]);
       })
 
 

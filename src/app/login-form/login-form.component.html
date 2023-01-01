@@ -1,47 +1,53 @@
-<div class="hero min-h-screen bg-base-200">
+<div data-theme="cupcake" class="hero min-h-screen">
     <div class="hero-content flex-col lg:flex-row">
-        <div>
+        <div class="mr-10">
             <h1 class="text-5xl font-bold text-center mb-5">Login now!</h1>
-            <div class="mockup-phone">
-                <div class="camera"></div>
-                <div class="display">
-                    <div class="artboard artboard-demo phone-1">
-                        <div class="text-3xl text-blue-400 text-center">{{logMsg}}</div>
-                    </div>
-                </div>
-            </div>
+            <img src="assets/images/signup-image.jpg" />
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 pb-10">
             <form #login="ngForm" class="card-body" (ngSubmit)="onSubmit(login)">
+
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">User id.</span>
+                        <span class="label-text text-lg font-bold">User ID<span class="text-error"
+                                *ngIf="userId.invalid"> *</span></span>
                     </label>
-                    <input required name="userId" #userId="ngModel" type="text" placeholder="user id"
+                    <input required name="userId" #userId="ngModel" type="text" placeholder="Your unique user id"
                         class="input input-bordered" ngModel />
-                    <div *ngIf="userId.touched && userId.invalid" class="text-sm text-red-400 ml-2 mt-2">
-                        Id is
-                        required</div>
                 </div>
+
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Password</span>
+                        <span class="label-text text-lg font-bold">Password<span class="text-error"
+                                *ngIf="password.invalid"> *</span></span>
                     </label>
-                    <input required name="password" #password="ngModel" type="password" placeholder="password"
-                        class="input input-bordered" ngModel />
-                    <div *ngIf="password.touched && password.invalid" class="text-sm text-red-400 ml-2 mt-2">
-                        Password
-                        is
-                        required</div>
-                    <label class="label">
-                        <a href="/forgot-password" class="label-text-alt link link-hover">Forgot password?</a>
+                    <input required name="password" #password="ngModel" type="password"
+                        placeholder="Type your password here" class="input input-bordered" ngModel />
+                </div>
+
+                <div class="form-control mt-2">
+                    <label class="label cursor-pointer">
+                        <span class="label-text text-lg font-bold">Remember me</span>
+                        <input name="terms" #terms="ngModel" type="checkbox" checked class="checkbox" ngModel />
                     </label>
                 </div>
-                <a href="/" class="label-text-alt link link-hover">Don't have an account? Register here</a>
-                <div class="form-control mt-6">
+
+                <div class="text-base text-error font-bold ml-2 mt-6">
+                    {{logMsg}}
+                </div>
+
+                <div class="form-control mt-2">
                     <button type="submit" class="btn btn-primary" [disabled]="!login.form.valid">Login</button>
                 </div>
             </form>
+
+            <div class="flex justify-center gap-4">
+                <a href="/" class="text-lg font-bold link link-hover">Register Here</a>
+                <div className="divider lg:divider-horizontal">|</div>
+                <a href="/forgot-password" class="text-lg font-bold link link-hover">Forgot
+                    password?</a>
+            </div>
+
         </div>
     </div>
 </div>

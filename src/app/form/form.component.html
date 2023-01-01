@@ -1,58 +1,133 @@
-<div class="hero min-h-screen bg-base-200">
-    <div class="hero-content flex-col lg:flex-row">
-        <div>
+<div data-theme="cupcake" class="hero min-h-screen">
+    <div class="hero-content flex-col lg:flex-row gap-4">
+        <div class="mr-10">
             <h1 class="text-5xl font-bold text-center mb-5">Register now!</h1>
-            <div class="mockup-phone">
-                <div class="camera"></div>
-                <div class="display">
-                    <div class="artboard artboard-demo phone-1">
-                        <div class="text-3xl text-blue-400 text-center">{{regMsg}}</div>
-                    </div>
-                </div>
-            </div>
+            <img src="assets/images/signup-image.jpg" />
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 pb-10">
             <form #register="ngForm" class="card-body" (ngSubmit)="onSubmit(register)">
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">User id.</span>
+                        <span class="label-text text-lg font-bold">User Name<span class="text-error"
+                                *ngIf="userName.invalid"> *</span></span>
                     </label>
-                    <input required name="userId" #userId="ngModel" type="text" placeholder="user id"
+                    <input required name="userName" #userName="ngModel" type="text" placeholder="First Name, Last Name"
                         class="input input-bordered" ngModel />
-                    <div *ngIf="userId.touched && userId.invalid" class="text-sm text-red-400 ml-2 mt-2">
-                        Id is
-                        required</div>
                 </div>
+
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Mobile no.</span>
+                        <span class="label-text text-lg font-bold">Email<span class="text-error" *ngIf="email.invalid">
+                                *</span></span>
                     </label>
-                    <input required pattern="[0-9]*" name="mobileNo" #mobileNo="ngModel" type="text"
-                        placeholder="mobile number" class="input input-bordered" ngModel />
-                    <div *ngIf="mobileNo.touched && mobileNo.invalid" class="text-sm text-red-400 ml-2 mt-2">
-                        Mobile no.
-                        is
-                        required / invalid</div>
+                    <input required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" name="email" #email="ngModel"
+                        type="email" placeholder="Type your email here" class="input input-bordered" ngModel />
+                    <div *ngIf="email.touched && email.invalid" class="text-lg font-bold text-error ml-2 mt-2">
+                        Email is Invalid</div>
                 </div>
+
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Password</span>
+                        <span class="label-text text-lg font-bold">User ID<span class="text-error"
+                                *ngIf="userId.invalid"> *</span></span>
                     </label>
-                    <input required name="password" #password="ngModel" type="password" placeholder="password"
+                    <input required name="userId" #userId="ngModel" type="text" placeholder="A unique user id"
                         class="input input-bordered" ngModel />
-                    <div *ngIf="password.touched && password.invalid" class="text-sm text-red-400 ml-2 mt-2">
-                        Password
-                        is
-                        required</div>
+                </div>
+
+                <div class="form-control">
                     <label class="label">
-                        <a href="/forgot-password" class="label-text-alt link link-hover">Forgot password?</a>
+                        <span class="label-text text-lg font-bold">Date of Birth</span>
+                    </label>
+                    <dp-date-picker name="selectedDate" class="input input-bordered" #selectedDate="ngModel" ngModel
+                        placeholder="Pick your date"></dp-date-picker>
+                </div>
+
+                <div class="form-control w-full max-w-xs">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold">Pick your gender</span>
+                    </label>
+                    <select name="gender" #gender="ngModel" class="select select-bordered" ngModel>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold">Mobile no<span class="text-error"
+                                *ngIf="mobileNo.invalid"> *</span></span>
+                    </label>
+                    <input required pattern="^[0-9]{9,11}$" name="mobileNo" #mobileNo="ngModel" type="text"
+                        placeholder="Your mobile number" class="input input-bordered" ngModel />
+                    <div *ngIf="mobileNo.touched && mobileNo.invalid" class="text-lg font-bold text-error ml-2 mt-2">
+                        Mobile number
+                        is
+                        invalid/ Minimum length should be 9 characters</div>
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold">Password<span class="text-error"
+                                *ngIf="password.invalid"> *</span></span>
+                    </label>
+                    <div className="input-group">
+                        <input required pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
+                            name="password" #password="ngModel" [type]="show ? 'text' : 'password'"
+                            placeholder="Type your password here" class="input input-bordered w-11/12 mr-2" ngModel />
+                        <button type="button" (click)="showPassword()" className="btn">
+                            <fa-icon [icon]="faEye"></fa-icon>
+                        </button>
+                    </div>
+                    <div *ngIf="password.touched && password.invalid" class="text-lg font-bold text-error ml-2 mt-2">
+                        Password must contain
+                        <ul>
+                            <li>- minimum 8 characters</li>
+                            <li>- one uppercase letter</li>
+                            <li>- one lowercase letter</li>
+                            <li>- one digit</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text text-lg font-bold">Confirm Password
+                            <span class="text-error" *ngIf="confirm.invalid"> *</span>
+                        </span>
+                    </label>
+                    <input required name="confirm" #confirm="ngModel" type="password"
+                        placeholder="Type your password again" class="input input-bordered" ngModel />
+                    <div *ngIf="confirm.value !== password.value" class="text-lg font-bold text-error ml-2 mt-2">
+                        Password doesn't match</div>
+                </div>
+
+                <div class="form-control mt-2">
+                    <label class="label cursor-pointer">
+                        <span class="label-text text-lg font-bold">I agree to terms and conditions</span>
+                        <input required name="terms" #terms="ngModel" type="checkbox" checked class="checkbox"
+                            ngModel />
                     </label>
                 </div>
-                <a href="/login" class="label-text-alt link link-hover">Already have an account? Log in here</a>
-                <div class="form-control mt-6">
-                    <button type="submit" class="btn btn-primary" [disabled]="!register.form.valid">Register</button>
+
+                <div *ngIf="!register.form.valid || confirm.value !== password.value"
+                    class="text-base font-bold ml-2 mt-6">
+                    Please fill the required fields(<span class="text-error">*</span>) properly and agree to the terms
+                </div>
+
+                <div class="form-control mt-2">
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="!register.form.valid || confirm.value !== password.value">Register</button>
                 </div>
             </form>
+
+            <div class="flex justify-center gap-4">
+                <a href="/login" class="text-lg font-bold link link-hover">Login Here</a>
+                <div className="divider lg:divider-horizontal">|</div>
+                <a href="/forgot-password" class="text-lg font-bold link link-hover">Forgot
+                    password?</a>
+            </div>
+
         </div>
     </div>
 </div>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from '../user.data';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,10 +12,15 @@ import { UserData } from '../user.data';
 })
 
 export class FormComponent implements OnInit {
-  public regMsg: string = '';
+  public faEye = faEye;
   public users: any = [];
+  public show: boolean = false;
 
-  constructor(private userData: UserData) { }
+  showPassword() {
+    this.show = !this.show;
+  }
+
+  constructor(private userData: UserData, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.userData.getUsers().subscribe(data => this.users = data)
@@ -20,9 +28,13 @@ export class FormComponent implements OnInit {
 
 
   onSubmit(Register: any) {
-    const alreadyExists = this.users.find((user: any) => user.userId === Register.value.userId)
+    const isLoggedIn = false;
+    const { email, gender, mobileNo, password, selectedDate, userId, userName } = Register.value;
+    const userInfo = { email, gender, mobileNo, password, selectedDate, userId, userName, isLoggedIn }
+
+    const alreadyExists = this.users.find((user: any) => user.userId === Register.value.userId || user.mobileNo === Register.value.mobileNo || user.email === Register.value.email)
     if (alreadyExists) {
-      this.regMsg = "User already exists";
+      this.toastr.error('You already have an existing account with same email/mobile number/name', 'Sorry!');
       return;
     }
 
@@ -31,11 +43,12 @@ export class FormComponent implements OnInit {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(Register.value)
+      body: JSON.stringify(userInfo)
     })
       .then(res => res.json())
       .then(data => {
-        this.regMsg = "User created successfully"
+        this.toastr.success('You are now registered', 'Congratulations!');
+        this.router.navigate(["/login"]);
       })
       .catch(e => console.log(e))
 
