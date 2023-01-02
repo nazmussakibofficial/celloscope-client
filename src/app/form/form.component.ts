@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from '../user.data';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 export class FormComponent implements OnInit {
   public faEye = faEye;
+  public faEyeSlash = faEyeSlash;
   public users: any = [];
   public show: boolean = false;
 

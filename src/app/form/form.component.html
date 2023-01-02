@@ -74,9 +74,10 @@
                     <div className="input-group">
                         <input required pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
                             name="password" #password="ngModel" [type]="show ? 'text' : 'password'"
-                            placeholder="Type your password here" class="input input-bordered w-11/12 mr-2" ngModel />
+                            placeholder="Type your password here" class="input input-bordered w-10/12 mr-2" ngModel />
                         <button type="button" (click)="showPassword()" className="btn">
-                            <fa-icon [icon]="faEye"></fa-icon>
+                            <fa-icon *ngIf="!show" [icon]="faEye"></fa-icon>
+                            <fa-icon *ngIf="show" [icon]="faEyeSlash"></fa-icon>
                         </button>
                     </div>
                     <div *ngIf="password.touched && password.invalid" class="text-lg font-bold text-error ml-2 mt-2">
