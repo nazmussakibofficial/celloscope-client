@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserData } from '../user.data';
@@ -8,7 +8,7 @@ import { UserData } from '../user.data';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   public users: any = [];
 
   constructor(private userData: UserData, private toastr: ToastrService, private router: Router) { }

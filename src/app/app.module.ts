@@ -14,13 +14,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
     LoginFormComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { DpDatePickerModule } from 'ng2-date-picker';
       { path: '', component: FormComponent },
       { path: 'login', component: LoginFormComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     ]),
     HotToastModule.forRoot(),
     ToastrModule.forRoot(),
